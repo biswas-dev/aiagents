@@ -1,0 +1,24 @@
+{
+  "entities": [
+    {"id": "auth-service", "type": "service", "properties": {"language": "Go", "team": "platform", "slo": "99.9%"}},
+    {"id": "user-db", "type": "database", "properties": {"engine": "PostgreSQL", "region": "us-east-1"}},
+    {"id": "payments-api", "type": "service", "properties": {"language": "Go", "team": "platform", "slo": "99.95%"}},
+    {"id": "billing-db", "type": "database", "properties": {"engine": "PostgreSQL", "region": "us-east-1"}},
+    {"id": "platform-team", "type": "team", "properties": {"slack": "#platform-eng", "oncall": "Alice"}},
+    {"id": "cache-layer", "type": "service", "properties": {"engine": "Redis", "team": "platform"}},
+    {"id": "api-gateway", "type": "service", "properties": {"language": "Go", "team": "infra", "slo": "99.99%"}},
+    {"id": "infra-team", "type": "team", "properties": {"slack": "#infra", "oncall": "Bob"}}
+  ],
+  "relationships": [
+    {"source_id": "auth-service", "target_id": "user-db", "relation": "depends_on"},
+    {"source_id": "auth-service", "target_id": "platform-team", "relation": "owned_by"},
+    {"source_id": "auth-service", "target_id": "cache-layer", "relation": "depends_on"},
+    {"source_id": "payments-api", "target_id": "billing-db", "relation": "depends_on"},
+    {"source_id": "payments-api", "target_id": "user-db", "relation": "reads_from"},
+    {"source_id": "payments-api", "target_id": "platform-team", "relation": "owned_by"},
+    {"source_id": "api-gateway", "target_id": "auth-service", "relation": "routes_to"},
+    {"source_id": "api-gateway", "target_id": "payments-api", "relation": "routes_to"},
+    {"source_id": "api-gateway", "target_id": "infra-team", "relation": "owned_by"},
+    {"source_id": "cache-layer", "target_id": "infra-team", "relation": "owned_by"}
+  ]
+}
