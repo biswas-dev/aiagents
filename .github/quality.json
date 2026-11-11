@@ -1,0 +1,18 @@
+{
+  "repo": "aiagents",
+  "components": {
+    "application": {
+      "repo": "aiagents",
+      "file": "coverage.out",
+      "language": "go",
+      "root": "",
+      "token": "COVERAGE_TOKEN",
+      "label": "Application",
+      "module": "github.com/biswas-dev/aiagents"
+    }
+  },
+  "workflows": [
+    ".github/workflows/security.yml",
+    ".github/workflows/ci.yml"
+  ]
+}
